@@ -6,7 +6,7 @@ import Home from "./Home";
 function App() {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
-    uri: "http://localhost:4000/",
+    uri: "https://vwlyc.sse.codesandbox.io/",
   });
 
   const [page, setPage] = useState("1");

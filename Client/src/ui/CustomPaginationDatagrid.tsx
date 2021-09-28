@@ -67,7 +67,6 @@ export default function CustomPaginationGrid() {
   };
 
   const handleRowClick = (param: any, event: any) => {
-    console.log(param);
     setCurrentPersonDetails({
       name: param.row.col1,
       height: param.row.col2,

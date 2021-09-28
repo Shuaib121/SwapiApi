@@ -8,12 +8,10 @@ export default function SearchQuery(name: string) {
   });
 
   if (loading) {
-    console.log("LOADING...");
     return [];
   }
 
   if (error) {
-    console.log("ERROR");
     return [];
   }
 
@@ -27,8 +25,6 @@ export default function SearchQuery(name: string) {
       col5: row.homeworld,
     };
   });
-
-  console.log("SUCCESS");
 
   return pageArr;
 }
