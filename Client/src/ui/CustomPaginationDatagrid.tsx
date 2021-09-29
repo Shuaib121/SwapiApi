@@ -8,7 +8,7 @@ import SearchQuery from "../queries/SearchQuery";
 import { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { usePeopleContext } from "../Context";
+import { usePeopleContext } from "../context/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -61,6 +61,7 @@ export default function CustomPaginationGrid() {
   const handleClose = () => setOpen(false);
 
   let rowData: any[] = [];
+  let loading: boolean = false;
 
   const handleSearch = (name: string) => {
     setName(name);
@@ -83,29 +84,42 @@ export default function CustomPaginationGrid() {
     rowData = PageQuery(page);
   }
 
+  if (Array.isArray(rowData) && rowData.length) {
+    loading = false;
+  } else {
+    loading = true;
+  }
+
   const rows: GridRowsProp = rowData;
   const columns: GridColDef[] = [
-    { field: "col1", headerName: "Name", width: 300 },
-    { field: "col2", headerName: "Height", width: 300 },
-    { field: "col3", headerName: "Mass", width: 300 },
-    { field: "col4", headerName: "Gender", width: 300 },
-    { field: "col5", headerName: "Homeworld", width: 300 },
+    { field: "col1", headerName: "Name", flex: 1 },
+    { field: "col2", headerName: "Height", flex: 1 },
+    { field: "col3", headerName: "Mass", flex: 1 },
+    { field: "col4", headerName: "Gender", flex: 1 },
+    { field: "col5", headerName: "Homeworld", flex: 1 },
   ];
 
   return (
-    <div style={{ height: 650, width: "100%" }}>
+    <>
       <SearchBar onNameSearch={handleSearch} />
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pagination
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        onRowClick={handleRowClick}
-        components={{
-          Pagination: CustomPagination,
-        }}
-      />
+      <div style={{ height: 400, width: "100%" }}>
+        <div style={{ display: "flex", height: "100%" }}>
+          <div style={{ flexGrow: 1 }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pagination
+              pageSize={10}
+              loading={loading}
+              rowsPerPageOptions={[10]}
+              onRowClick={handleRowClick}
+              components={{
+                Pagination: CustomPagination,
+              }}
+            />
+          </div>
+        </div>
+      </div>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h4">
@@ -128,6 +142,6 @@ export default function CustomPaginationGrid() {
           </Typography>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

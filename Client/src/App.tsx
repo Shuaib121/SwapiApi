@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { useState } from "react";
-import { Context } from "./Context";
+import { Context } from "./context/Context";
 import Home from "./Home";
 
 function App() {

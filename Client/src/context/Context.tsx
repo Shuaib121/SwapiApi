@@ -3,8 +3,8 @@ import { createContext, useContext } from "react";
 export type ContextType = {
   page: string;
   name: string;
-  setPage: (String: any) => void;
-  setName: (String: any) => void;
+  setPage: (String: string) => void;
+  setName: (String: string) => void;
 };
 
 export const Context = createContext<ContextType>({
